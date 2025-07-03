@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: mi-api-sqlserver
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port 10000
+    envVars:
+      - key: SERVER
+        value: 192.168.2.20
+      - key: DB
+        value: SistradeERP
+      - key: USER
+        value: GaleriaGrafica
+      - key: PASSWORD
+        value: Galeria123
