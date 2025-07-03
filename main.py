@@ -1,13 +1,14 @@
 from fastapi import FastAPI
 import pyodbc
+import os
 
 app = FastAPI()
 
-# Configura tu conexión SQL Server
-server = '192.168.2.20'         # Reemplaza con IP o nombre real de tu servidor
-database = 'SistradeERP'
-username = 'GaleriaGrafica'
-password = 'Galeria123'
+# Conexión usando variables de entorno
+server = os.getenv('SERVER')
+database = os.getenv('DB')
+username = os.getenv('USER')
+password = os.getenv('PASSWORD')
 driver = '{ODBC Driver 17 for SQL Server}'
 
 conn_str = f'DRIVER={driver};SERVER={server};DATABASE={database};UID={username};PWD={password}'
