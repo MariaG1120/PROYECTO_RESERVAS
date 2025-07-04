@@ -1,19 +1,10 @@
 services:
   - type: web
-    name: proyecto-reservas
-    env: python
-    region: oregon
+    name: proyecto_reservas
+    env: docker
     plan: free
-    buildCommand: |
-      cat /etc/os-release && \
-      apt-get update && \
-      apt-get install -y curl gnupg apt-transport-https && \
-      curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - && \
-      curl https://packages.microsoft.com/config/debian/11/prod.list > /etc/apt/sources.list.d/mssql-release.list && \
-      apt-get update && \
-      ACCEPT_EULA=Y apt-get install -y msodbcsql17 unixodbc-dev && \
-      pip install -r requirements.txt
-    startCommand: uvicorn main:app --host 0.0.0.0 --port 10000
+    region: oregon
+    dockerfilePath: ./Dockerfile
     envVars:
       - fromGroup: base-secrets
 
