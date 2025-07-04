@@ -2,10 +2,11 @@ services:
   - type: web
     name: proyecto-reservas
     env: python
+    region: oregon
     plan: free
     buildCommand: |
       apt-get update && \
-      apt-get install -y curl gnupg && \
+      apt-get install -y curl gnupg apt-transport-https && \
       curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - && \
       curl https://packages.microsoft.com/config/debian/10/prod.list > /etc/apt/sources.list.d/mssql-release.list && \
       apt-get update && \
@@ -14,4 +15,5 @@ services:
     startCommand: uvicorn main:app --host 0.0.0.0 --port 10000
     envVars:
       - fromGroup: base-secrets
+
 
