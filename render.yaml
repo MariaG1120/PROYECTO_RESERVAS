@@ -1,11 +1,18 @@
 services:
   - type: web
-    name: proyecto_reservas
+    name: api-op-fastapi
     env: docker
     plan: free
     region: oregon
     dockerfilePath: ./Dockerfile
     envVars:
-      - fromGroup: base-secrets
+      - key: SERVER
+        value: 0.tcp.ngrok.io,12345    # Reemplaza con tu host y puerto de ngrok
+      - key: DB
+        value: SistradeERP
+      - key: USER
+        value: GaleriaGrafica
+      - key: PASSWORD
+        value: Galeria123
 
 

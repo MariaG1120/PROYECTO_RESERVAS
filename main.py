@@ -5,12 +5,14 @@ import os
 app = FastAPI()
 
 # Conexión usando variables de entorno
-server = os.getenv('SERVER')
-database = os.getenv('DB')
-username = os.getenv('USER')
-password = os.getenv('PASSWORD')
-driver = '{ODBC Driver 17 for SQL Server}'
+# En SERVER debes pasar algo como: '0.tcp.ngrok.io,12345'
+server = os.getenv('SERVER')               # Ejemplo de valor: '0.tcp.ngrok.io,12345'
+database = os.getenv('DB')                # Nombre de tu base de datos
+username = os.getenv('USER')              # Usuario de SQL Server
+password = os.getenv('PASSWORD')          # Contraseña
+driver = '{ODBC Driver 17 for SQL Server}'  # No cambiar esto
 
+# Cadena de conexión ODBC
 conn_str = f'DRIVER={driver};SERVER={server};DATABASE={database};UID={username};PWD={password}'
 
 @app.get("/op")
@@ -52,7 +54,7 @@ def get_op_data(op: str):
         """, op)
         consumos = [dict(zip([column[0] for column in cursor.description], row)) for row in cursor.fetchall()]
 
-        # 3. Consulta DISPONIBILIDAD de materiales usados
+        # 3. Consulta DISPONIBILIDAD
         codigos_articulos = list({row['Codigo_Articulo'] for row in consumos})
         disponibilidad = []
         if codigos_articulos:
